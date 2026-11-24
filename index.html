@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
   <style>
+    
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -42,7 +43,8 @@
       z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
+      gap: 16px;
       padding: 18px 60px;
       background: rgba(255,255,255,0.94);
       backdrop-filter: blur(14px);
@@ -141,6 +143,7 @@
     .hero-photo-wrap {
       position: relative;
       width: 260px;
+      max-width: 100%;
       flex-shrink: 0;
     }
     .hero-photo {
@@ -152,7 +155,7 @@
       box-shadow: 0 8px 40px rgba(0,0,0,0.13);
       display: block;
     }
-    /* fallback circle */
+  
     .hero-photo-fallback {
       width: 260px; height: 260px;
       border-radius: 50%;
@@ -228,17 +231,28 @@
     #projetos { background: var(--white); }
 
     .carousel-wrap { position: relative; }
-    .carousel-outer { overflow: hidden; border-radius: 14px; }
+    .carousel-outer { overflow: hidden; border-radius: 14px; padding: 8px 2px 14px; margin: -8px -2px -14px; touch-action: pan-y; }
     .carousel-track {
       display: flex;
       gap: 24px;
       transition: transform 0.5s cubic-bezier(.4,0,.2,1);
       will-change: transform;
+      align-items: stretch;
     }
 
+    .project-link {
+      flex: 0 0 var(--card-w, calc((100% - 48px) / 3));
+      min-width: 0;
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-drag: none;
+    }
+    .project-link:focus-visible { outline: 2px solid var(--blue-medium); outline-offset: 4px; border-radius: 16px; }
+
     .project-card {
-      min-width: calc(33.333% - 16px);
-      flex-shrink: 0;
+      height: 100%;
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 16px;
@@ -263,6 +277,8 @@
     .project-card h3 {
       font-family: 'DM Serif Display', serif;
       font-size: 18px;
+      font-weight: 400;
+      color: var(--text-dark);
       margin-bottom: 16px;
     }
     .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -316,8 +332,6 @@
       position: relative;
       overflow: hidden;
     }
-
-    /* Cross-stitch flower — right side watermark */
     .flower-right {
       position: absolute;
       right: 60px;
@@ -325,7 +339,6 @@
       opacity: 0.28;
       pointer-events: none;
     }
-    /* Cross-stitch flower — left large decorative */
     .flower-left {
       position: absolute;
       left: -10px;
@@ -358,10 +371,13 @@
     }
 
     .cert-badge {
-      width: 200px;     
-      height: 100px;     
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      aspect-ratio: 2 / 1;
       object-fit: contain;
       margin-bottom: 12px;
+      display: block;
     }
 
     .cert-card:hover {
@@ -423,18 +439,43 @@
     }
 
     /* RESPONSIVE */
-    @media (max-width: 800px) {
-      nav { padding: 16px 24px; }
-      .nav-links { gap: 20px; }
-      section { padding: 80px 24px; }
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-photo-wrap { order: -1; margin: 0 auto; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .certs-grid { grid-template-columns: 1fr 1fr; }
-      .project-card { min-width: 78vw; }
-      .carousel-btn.prev { left: -10px; }
-      .carousel-btn.next { right: -10px; }
+    @media (max-width: 1100px) {
+      .carousel-btn.prev { left: -12px; }
+      .carousel-btn.next { right: -12px; }
     }
+    @media (max-width: 900px) {
+      section { padding: 90px 32px 70px; }
+      .certs-grid { grid-template-columns: repeat(2, 1fr); }
+      .flower-left { width: 200px; height: auto; }
+      .stars-deco { right: 40px; }
+    }
+    @media (max-width: 800px) {
+      nav { padding: 14px 20px; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 14px; }
+      section { padding: 84px 20px 60px; }
+      #sobre { min-height: auto; padding-top: 110px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+      .hero-bio { margin: 0 auto; }
+      .hero-photo-wrap { order: -1; margin: 12px auto 0; width: 220px; }
+      .hero-photo, .hero-photo-fallback { width: 220px; height: 220px; }
+      .hero-ring { width: 244px; height: 244px; mask: radial-gradient(transparent 120px, black 122px); -webkit-mask: radial-gradient(transparent 120px, black 122px); }
+      .section-rule { margin-bottom: 36px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .project-card { padding: 22px; }
+      .carousel-btn { width: 38px; height: 38px; font-size: 18px; }
+      .carousel-btn.prev { left: -8px; }
+      .carousel-btn.next { right: -8px; }
+      .flower-right { display: none; }
+      .flower-left { width: 150px; opacity: 0.12; }
+      .stars-deco { right: 20px; top: 40px; transform: scale(.8); transform-origin: top right; }
+    }
+    @media (max-width: 520px) {
+      .certs-grid { grid-template-columns: 1fr; }
+      .contact-links { gap: 18px 24px; }
+      footer { padding: 24px 20px; }
+    }
+  
   </style>
 </head>
 <body>
@@ -746,24 +787,61 @@ const track  = document.getElementById('cTrack');
 const dots   = document.getElementById('cDots');
 const cards  = track.querySelectorAll('.project-card');
 const total  = cards.length;
-let cur      = 0;
+let cur      = 0, perView = 3;
 
-cards.forEach((_, i) => {
-  const d = document.createElement('div');
-  d.className = 'dot' + (i === 0 ? ' active' : '');
-  d.onclick = () => goTo(i);
-  dots.appendChild(d);
-});
+function getPerView() {
+  const w = window.innerWidth;
+  if (w <= 640) return 1;
+  if (w <= 1000) return 2;
+  return 3;
+}
 
-function goTo(n) {
-  cur = (n + total) % total;
-  const w = cards[0].offsetWidth + 24;
-  track.style.transform = `translateX(-${cur * w}px)`;
-  dots.querySelectorAll('.dot').forEach((d, i) =>
-    d.classList.toggle('active', i === cur));
+function buildDots() {
+  dots.innerHTML = '';
+  const pages = Math.max(total - perView + 1, 1);
+  for (let i = 0; i < pages; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    d.onclick = () => goTo(i);
+    dots.appendChild(d);
+  }
+}
+
+function layout() {
+  perView = getPerView();
+  const w = (track.parentElement.clientWidth - 4 - GAP * (perView - 1)) / perView;
+  items.forEach(el => el.style.setProperty('--card-w', w + 'px'));
+  items.forEach(el => el.style.flexBasis = w + 'px');
+  buildDots();
+  goTo(Math.min(cur, total - perView), false);
+}
+
+function goTo(n, animate = true) {
+  const max = Math.max(total - perView, 0);
+  cur = n > max ? 0 : n < 0 ? max : n;
+  const step = items[0].offsetWidth + GAP;
+  track.style.transition = animate ? '' : 'none';
+  track.style.transform = `translateX(${-cur * step}px)`;
+  if (!animate) { void track.offsetWidth; track.style.transition = ''; }
+  dots.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
 }
 function move(dir) { goTo(cur + dir); }
-window.addEventListener('resize', () => goTo(cur));
+
+let startX = 0, startY = 0, swiped = false;
+track.addEventListener('touchstart', e => {
+  startX = e.touches[0].clientX; startY = e.touches[0].clientY; swiped = false;
+}, { passive: true });
+track.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - startX;
+  const dy = e.changedTouches[0].clientY - startY;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { swiped = true; move(dx < 0 ? 1 : -1); }
+});
+track.addEventListener('click', e => { if (swiped) { e.preventDefault(); swiped = false; } });
+
+let rt;
+window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 120); });
+window.addEventListener('load', layout);
+layout();
 </script>
 </body>
 </html>
